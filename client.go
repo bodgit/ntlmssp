@@ -183,19 +183,27 @@ func (c *Client) processChallengeMessage(input []byte, bindings *ChannelBindings
 		return nil, err
 	}
 
-	lmChallengeResponse, err := lmChallengeResponse(c.negotiatedFlags, c.compatibilityLevel, clientChallenge, c.username, c.password, c.domain, cm)
-	if err != nil {
-		return nil, err
-	}
-
 	targetInfo, err := cm.TargetInfo.Clone()
 	if err != nil {
 		return nil, err
 	}
 
-	ntChallengeResponse, keyExchangeKey, err := ntChallengeResponse(c.negotiatedFlags, c.compatibilityLevel, clientChallenge, c.username, c.password, c.domain, cm, lmChallengeResponse, *targetInfo, bindings)
-	if err != nil {
-		return nil, err
+	var lmChallengeResponsePayload, ntChallengeResponsePayload, keyExchangeKey []byte
+
+	// Create anonymous session
+	if c.username == "" && c.password == "" {
+		lmChallengeResponsePayload = []byte{0x00}
+		ntChallengeResponsePayload = []byte{}
+		keyExchangeKey = []byte{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+	} else {
+		lmChallengeResponsePayload, err = lmChallengeResponse(c.negotiatedFlags, c.compatibilityLevel, clientChallenge, c.username, c.password, c.domain, cm)
+		if err != nil {
+			return nil, err
+		}
+		ntChallengeResponsePayload, keyExchangeKey, err = ntChallengeResponse(c.negotiatedFlags, c.compatibilityLevel, clientChallenge, c.username, c.password, c.domain, cm, lmChallengeResponsePayload, *targetInfo, bindings)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	var encryptedRandomSessionKey, exportedSessionKey []byte
@@ -226,8 +234,8 @@ func (c *Client) processChallengeMessage(input []byte, bindings *ChannelBindings
 			messageHeader:  newMessageHeader(ntLmAuthenticate),
 			NegotiateFlags: c.negotiatedFlags,
 		},
-		LmChallengeResponse:       lmChallengeResponse,
-		NtChallengeResponse:       ntChallengeResponse,
+		LmChallengeResponse:       lmChallengeResponsePayload,
+		NtChallengeResponse:       ntChallengeResponsePayload,
 		DomainName:                c.domain,
 		UserName:                  c.username,
 		Workstation:               c.workstation,
