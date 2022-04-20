@@ -178,6 +178,11 @@ func (c *Client) processChallengeMessage(input []byte, bindings *ChannelBindings
 		c.negotiatedFlags = ntlmNegotiateOEM.Unset(c.negotiatedFlags)
 	}
 
+	// Set anonymous flag
+	if c.username == "" && c.password == "" {
+		c.negotiatedFlags = ntlmsspAnonymous.Set(c.negotiatedFlags)
+	}
+
 	clientChallenge, err := generateClientChallenge()
 	if err != nil {
 		return nil, err
