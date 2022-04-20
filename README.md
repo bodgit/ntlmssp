@@ -2,8 +2,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/bodgit/ntlmssp/badge.svg?branch=master)](https://coveralls.io/github/bodgit/ntlmssp?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/bodgit/ntlmssp)](https://goreportcard.com/report/github.com/bodgit/ntlmssp)
 [![GoDoc](https://godoc.org/github.com/bodgit/ntlmssp?status.svg)](https://godoc.org/github.com/bodgit/ntlmssp)
+![Go version](https://img.shields.io/badge/Go-1.18-brightgreen.svg)
 ![Go version](https://img.shields.io/badge/Go-1.17-brightgreen.svg)
-![Go version](https://img.shields.io/badge/Go-1.16-brightgreen.svg)
 
 ntlmssp
 =======
