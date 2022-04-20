@@ -5,6 +5,8 @@ import (
 	"encoding/binary"
 	"strings"
 	"time"
+
+	"golang.org/x/crypto/md4"
 )
 
 const (
@@ -156,6 +158,8 @@ func ntlmV1ExchangeKey(flags uint32, sessionBaseKey []byte, serverChallenge []by
 
 func lmChallengeResponse(flags uint32, level lmCompatibilityLevel, clientChallenge []byte, username, password, domain string, cm *challengeMessage) ([]byte, error) {
 	switch {
+	case ntlmsspAnonymous.IsSet(flags):
+		return zeroBytes(1), nil
 	case ntlmsspNegotiateExtendedSessionsecurity.IsSet(flags) && level < 3:
 		// LMv1 with session security
 		return lmV1WithSessionSecurityResponse(clientChallenge), nil
@@ -177,6 +181,8 @@ func lmChallengeResponse(flags uint32, level lmCompatibilityLevel, clientChallen
 
 func ntChallengeResponse(flags uint32, level lmCompatibilityLevel, clientChallenge []byte, username, password, domain string, cm *challengeMessage, lmChallengeResponse []byte, targetInfo targetInfo, channelBindings *ChannelBindings) ([]byte, []byte, error) {
 	switch {
+	case ntlmsspAnonymous.IsSet(flags):
+		return []byte{}, zeroBytes(md4.Size), nil
 	case level < 3:
 		var response, sessionBaseKey []byte
 		var err error
