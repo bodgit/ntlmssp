@@ -7,5 +7,5 @@ require (
 	github.com/stretchr/testify v1.7.1
 	github.com/tidwall/transform v0.0.0-20170512230743-9b12a70c77d3
 	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4
-	golang.org/x/text v0.3.2
+	golang.org/x/text v0.3.7
 )
