@@ -1,7 +1,9 @@
-[![Build Status](https://travis-ci.com/bodgit/ntlmssp.svg?branch=master)](https://travis-ci.com/bodgit/ntlmssp)
+[![Build Status](https://img.shields.io/github/workflow/status/bodgit/ntlmssp/build)](https://github.com/bodgit/ntlmssp/actions?query=workflow%3Abuild)
 [![Coverage Status](https://coveralls.io/repos/github/bodgit/ntlmssp/badge.svg?branch=master)](https://coveralls.io/github/bodgit/ntlmssp?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/bodgit/ntlmssp)](https://goreportcard.com/report/github.com/bodgit/ntlmssp)
 [![GoDoc](https://godoc.org/github.com/bodgit/ntlmssp?status.svg)](https://godoc.org/github.com/bodgit/ntlmssp)
+![Go version](https://img.shields.io/badge/Go-1.17-brightgreen.svg)
+![Go version](https://img.shields.io/badge/Go-1.16-brightgreen.svg)
 
 ntlmssp
 =======
