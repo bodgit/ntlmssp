@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/bodgit/windows"
 	"golang.org/x/crypto/md4"
 )
 
@@ -14,8 +15,14 @@ const (
 )
 
 func realCurrentTime() ([]byte, error) {
-	ft := nsecToFiletime(time.Now().UnixNano())
-	return ft.Marshal()
+	ft := windows.NsecToFiletime(time.Now().UnixNano())
+
+	b := bytes.Buffer{}
+	if err := binary.Write(&b, binary.LittleEndian, ft); err != nil {
+		return nil, err
+	}
+
+	return b.Bytes(), nil
 }
 
 var currentTime = realCurrentTime
