@@ -160,7 +160,7 @@ func (c *Client) unwrap(resp *http.Response) error {
 
 		resp.Body = ioutil.NopCloser(bytes.NewBuffer(body))
 		resp.Header.Set(contentTypeHeader, newContentType)
-		resp.Header.Set("Content-Length", string(len(body)))
+		resp.Header.Set("Content-Length", fmt.Sprint(len(body)))
 	}
 
 	return nil
