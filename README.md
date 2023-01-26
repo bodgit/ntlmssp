@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/github/actions/workflow/status/bodgit/ntlmssp/main.yml?branch=main)](https://github.com/bodgit/ntlmssp/actions?query=workflow%3Abuild)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/bodgit/ntlmssp/main.yml?branch=master)](https://github.com/bodgit/ntlmssp/actions?query=workflow%3Abuild)
 [![Coverage Status](https://coveralls.io/repos/github/bodgit/ntlmssp/badge.svg?branch=master)](https://coveralls.io/github/bodgit/ntlmssp?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/bodgit/ntlmssp)](https://goreportcard.com/report/github.com/bodgit/ntlmssp)
 [![GoDoc](https://godoc.org/github.com/bodgit/ntlmssp?status.svg)](https://godoc.org/github.com/bodgit/ntlmssp)
