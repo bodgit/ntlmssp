@@ -7,8 +7,8 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/stretchr/testify v1.8.1
 	github.com/tidwall/transform v0.0.0-20201103190739-32f242e2dbde
-	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4
-	golang.org/x/text v0.6.0
+	golang.org/x/crypto v0.6.0
+	golang.org/x/text v0.7.0
 )
 
 require (
