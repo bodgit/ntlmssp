@@ -27,6 +27,7 @@ type Client struct {
 	ntlm       *ntlmssp.Client
 	encryption bool
 	sendCBT    bool
+	Debug      bool
 }
 
 type teeReadCloser struct {
@@ -180,7 +181,9 @@ func (c *Client) Do(req *http.Request) (resp *http.Response, err error) {
 		req.Body = teeReadCloser{tr, req.Body}
 	}
 
-	fmt.Println(req)
+	if c.Debug {
+		fmt.Println(req)
+	}
 
 	resp, err = c.http.Do(req)
 	if err != nil {
@@ -223,7 +226,9 @@ func (c *Client) Do(req *http.Request) (resp *http.Response, err error) {
 			req.Body = ioutil.NopCloser(&body)
 		}
 
-		fmt.Println(req)
+		if c.Debug {
+			fmt.Println(req)
+		}
 
 		resp, err = c.http.Do(req)
 		if err != nil {
