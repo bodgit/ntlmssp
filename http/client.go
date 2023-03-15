@@ -15,6 +15,7 @@ import (
 	"strings"
 
 	"github.com/bodgit/ntlmssp"
+	"github.com/go-logr/logr"
 	"github.com/hashicorp/go-cleanhttp"
 )
 
@@ -27,6 +28,7 @@ type Client struct {
 	ntlm       *ntlmssp.Client
 	encryption bool
 	sendCBT    bool
+	logger     logr.Logger
 }
 
 type teeReadCloser struct {
@@ -62,8 +64,9 @@ func NewClient(httpClient *http.Client, ntlmClient *ntlmssp.Client, options ...f
 	}
 
 	c := &Client{
-		http: httpClient,
-		ntlm: ntlmClient,
+		http:   httpClient,
+		ntlm:   ntlmClient,
+		logger: logr.Discard(),
 	}
 
 	if err := c.SetOption(options...); err != nil {
@@ -92,6 +95,13 @@ func SendCBT(value bool) func(*Client) error {
 func Encryption(value bool) func(*Client) error {
 	return func(c *Client) error {
 		c.encryption = value
+		return nil
+	}
+}
+
+func Logger(logger logr.Logger) func(*Client) error {
+	return func(c *Client) error {
+		c.logger = logger
 		return nil
 	}
 }
@@ -180,7 +190,7 @@ func (c *Client) Do(req *http.Request) (resp *http.Response, err error) {
 		req.Body = teeReadCloser{tr, req.Body}
 	}
 
-	fmt.Println(req)
+	c.logger.Info("request", req)
 
 	resp, err = c.http.Do(req)
 	if err != nil {
@@ -223,7 +233,7 @@ func (c *Client) Do(req *http.Request) (resp *http.Response, err error) {
 			req.Body = ioutil.NopCloser(&body)
 		}
 
-		fmt.Println(req)
+		c.logger.Info("request", req)
 
 		resp, err = c.http.Do(req)
 		if err != nil {
