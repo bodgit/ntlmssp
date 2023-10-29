@@ -8,8 +8,8 @@ jobs:
       fail-fast: false
       matrix:
         go:
-          - '1.17'
-          - '1.18'
+          - '1.19'
+          - '1.20'
     steps:
       - name: Checkout
         uses: actions/checkout@v4

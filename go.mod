@@ -1,6 +1,6 @@
 module github.com/bodgit/ntlmssp
 
-go 1.17
+go 1.18
 
 require (
 	github.com/bodgit/windows v1.0.1
