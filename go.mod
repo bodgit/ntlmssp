@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/bodgit/windows v1.0.1
-	github.com/go-logr/logr v1.4.1
+	github.com/go-logr/logr v1.4.2
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/stretchr/testify v1.9.0
 	github.com/tidwall/transform v0.0.0-20201103190739-32f242e2dbde
