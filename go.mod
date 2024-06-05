@@ -8,8 +8,8 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/stretchr/testify v1.9.0
 	github.com/tidwall/transform v0.0.0-20201103190739-32f242e2dbde
-	golang.org/x/crypto v0.22.0
-	golang.org/x/text v0.15.0
+	golang.org/x/crypto v0.24.0
+	golang.org/x/text v0.16.0
 )
 
 require (
