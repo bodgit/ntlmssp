@@ -127,7 +127,7 @@ func (c *Client) wrap(req *http.Request) error {
 		length := make([]byte, 4)
 		binary.LittleEndian.PutUint32(length, uint32(len(signature)))
 
-		body, newContentType, err := Wrap(concat(length, signature, sealed), contentType)
+		body, newContentType, err := Wrap(concat(length, signature, sealed), contentType, len(body))
 		if err != nil {
 			return err
 		}
