@@ -98,7 +98,7 @@ func fromWSMV(r io.Reader) io.Reader {
 	})
 }
 
-func Wrap(input []byte, ct string) ([]byte, string, error) {
+func Wrap(input []byte, ct string, contentLength int) ([]byte, string, error) {
 	b := &bytes.Buffer{}
 
 	writer := multipart.NewWriter(b)
@@ -109,7 +109,7 @@ func Wrap(input []byte, ct string) ([]byte, string, error) {
 	header := make(textproto.MIMEHeader)
 	header.Set(contentTypeHeader, mimeProtocol)
 	// Using Set() will canonicalise this to "Originalcontent" which may cause problems
-	header["OriginalContent"] = []string{fmt.Sprintf("type=%s;Length=%d", ct, len(input))}
+	header["OriginalContent"] = []string{fmt.Sprintf("type=%s;Length=%d", ct, contentLength)}
 
 	if _, err := writer.CreatePart(header); err != nil {
 		return nil, "", err
